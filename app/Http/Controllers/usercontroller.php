@@ -9,18 +9,18 @@ use App\Models\user;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
 
-class usercontroller extends Controller implements HasMiddleware
+class usercontroller extends Controller //implements HasMiddleware
 {
-    public static function Middleware():array
-    {
-        return
-        [
-            new Middleware('permission:view users',only:['index']),
-            new Middleware('permission:edit users',only:['edit']),
-            new Middleware('permission:create users',only:['create']),
-            new Middleware('permission:delete users',only:['destroy']),
-        ];
-    }
+    // public static function Middleware():array
+    // {
+    //     return
+    //     [
+    //         new Middleware('permission:view users',only:['index']),
+    //         new Middleware('permission:edit users',only:['edit']),
+    //         new Middleware('permission:create users',only:['create']),
+    //         new Middleware('permission:delete users',only:['destroy']),
+    //     ];
+    // }
 	public function index()
 	{
 		$user=User::paginate(7);

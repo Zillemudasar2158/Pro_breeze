@@ -20,7 +20,7 @@
                         <th class="px-6 py-3 text-left">Name</th>
                         <th class="px-6 py-3 text-left">Permission assign</th>
             			<th class="px-6 py-3 text-left">Created</th>
-                        @can('edit roles')
+                        @canany(['edit roles', 'delete roles'])
             			<th class="px-6 py-3 text-center" colspan="2">Action</th>
                         @endcan
             		</tr>

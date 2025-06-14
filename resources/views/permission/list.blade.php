@@ -19,9 +19,9 @@
             			<th class="px-6 py-3 text-left">Sr No.</th>
             			<th class="px-6 py-3 text-left">Name</th>
             			<th class="px-6 py-3 text-left">Created</th>
-                        @can('edit permissions')
+                        @canany(['edit permissions', 'delete permissions'])
             			<th class="px-6 py-3 text-center">Action</th>
-                        @endcan
+                        @endcanany
             		</tr>
             	</thead>
             	<tbody class="bg-white">
@@ -31,13 +31,16 @@
 	            			<td class="px-6 py-3 text-left">{{$loop->iteration + ($permission->currentPage() - 1) * $permission->perPage()}}</td>
 	            			<td class="px-6 py-3 text-left">{{$user->name}}</td>
 	            			<td class="px-6 py-3 text-left">{{\Carbon\Carbon::parse($user->created_at)->format('d M,Y')}}</td>
-	            			@can('edit permissions')
-                            <td class="px-6 py-3 text-center">                                
-	            				<a href="{{route('permission.edit',$user->id)}}" class="bg-slate-700 text-sm rounded-md text-white px-3 py-2 hover:bg-slate-600">Edit</a>                                @can('delete permissions')
+	            			@canany(['edit permissions', 'delete permissions'])
+                            <td class="px-6 py-3 text-center">   
+                                @can('edit permissions')                             
+	            				<a href="{{route('permission.edit',$user->id)}}" class="bg-slate-700 text-sm rounded-md text-white px-3 py-2 hover:bg-slate-600">Edit</a>  
+                                @endcan
+                                @can('delete permissions')
 	            				<a href="{{route('permission.destory',$user->id)}}" class="bg-red-700 text-sm rounded-md text-white px-3 py-2 hover:bg-red-600">Delete</a>
                                 @endcan
 	            			</td>
-                            @endcan
+                            @endcanany
             			</tr>
             		@endforeach
             	@endif

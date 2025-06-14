@@ -15,7 +15,9 @@
             		<tr class="border-b">
             			<th class="px-6 py-3 text-left">Sr No.</th>
                         <th class="px-6 py-3 text-left">Name</th>
+                        @can('edit users')
                         <th class="px-6 py-3 text-left">Email</th>
+                        @endcan
                         <th class="px-6 py-3 text-left">Role</th>
             			<th class="px-6 py-3 text-left">Created</th>
                         @can('edit users')
@@ -29,15 +31,17 @@
             			<tr class="border-b">
 	            			<td class="px-6 py-3 text-left">{{$loop->iteration+ ($user->currentPage() - 1) * $user->perPage()}}</td>
                             <td class="px-6 py-3 text-left">{{$users->name}}</td>
+                            @can('edit users')
                             <td class="px-6 py-3 text-left">{{$users->email}}</td>
+                            @endcan
                             <td class="px-6 py-3 text-left">{{$users->roles->pluck('name')->implode(', ')}} 
                             </td>
 	            			<td class="px-6 py-3 text-left">{{\Carbon\Carbon::parse($users->created_at)->format('d M,Y')}}</td>
-	            			<td class="px-6 py-3 text-center">
-                                @can('edit users')
-	            				<a href="{{route('users.edit',$users->id)}}" class="bg-slate-700 text-sm rounded-md text-white px-3 py-2 hover:bg-slate-600">Edit</a>
-                                @endcan
+	            			@can('edit users')
+                            <td class="px-6 py-3 text-center">
+                                <a href="{{route('users.edit',$users->id)}}" class="bg-slate-700 text-sm rounded-md text-white px-3 py-2 hover:bg-slate-600">Edit</a>
 	            			</td>
+                            @endcan
             			</tr>
             		@endforeach
             	@endif

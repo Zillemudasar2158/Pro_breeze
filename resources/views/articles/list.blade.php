@@ -20,7 +20,7 @@
                         <th class="px-6 py-3 text-left">Title</th>
                         <th class="px-6 py-3 text-left">Author</th>
             			<th class="px-6 py-3 text-left">Created</th>
-                        @can('edit articles')
+                        @canany(['edit articles', 'delete articles'])
             			<th class="px-6 py-3 text-center">Action</th>
                         @endcan
             		</tr>
@@ -33,16 +33,16 @@
                             <td class="px-6 py-3 text-left">{{$user->title}}</td>
                             <td class="px-6 py-3 text-left">{{$user->author}}</td>
                             <td class="px-6 py-3 text-left">{{\Carbon\Carbon::parse($user->created_at)->format('d M,Y')}}</td>
-                            @can('edit articles')
-                            <td class="px-6 py-3 text-center">
-                                <div class="flex justify-center space-x-4">
-                                    <a href="{{ route('articles.edit', $user->id) }}" class="bg-slate-700 text-sm rounded-md text-white px-3 py-2 hover:bg-slate-600">Edit</a>
+	                        @canany(['edit articles', 'delete articles'])
+	                            <td class="px-6 py-3 text-center">
+	                            	@can('edit articles')
+	                                <a href="{{ route('articles.edit', $user->id) }}" class="bg-slate-700 text-sm rounded-md text-white px-3 py-2 hover:bg-slate-600">Edit</a>
+	                       			@endcan 
                                     @can('delete articles')
                                     <a href="{{ route('articles.destory', $user->id) }}" class="bg-red-700 text-sm rounded-md text-white px-3 py-2 hover:bg-red-600">Delete</a>
                                     @endcan
-                                </div>
-                            </td>
-                            @endcan
+	                            </td>
+	                        @endcanany
                         </tr>
                     @endforeach
                     @endif
